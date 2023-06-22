@@ -43,7 +43,7 @@ class PrometheusServiceProvider extends ServiceProvider
         //     $this->loadRoutesFrom(__DIR__ . '/../routes.php');
         // }
 
-        $this->app->router->group(['namespace' => config('prometheus.namespace')], function ($route) {
+        $this->app->router->group([], function ($route) {
             require __DIR__.'/../routes.php';
         });
 
