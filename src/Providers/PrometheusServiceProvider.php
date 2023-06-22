@@ -73,6 +73,12 @@ class PrometheusServiceProvider extends ServiceProvider
             return new PublishConfigCommand();
         });
 
+        $this->app->bind(\Illuminate\Routing\RouteCollectionInterface::class, function ($app) { return new \Illuminate\Routing\RouteCollection; });
+        // $this->app->singleton(\Illuminate\Contracts\Routing\ResponseFactory::class, function() {
+        //     return new Laravel\Lumen\Http\ResponseFactory();
+        // });
+
+
         $this->app->singleton(PrometheusExporter::class, function ($app) {
             $adapter = $app['prometheus.storage_adapter'];
             $prometheus = new CollectorRegistry($adapter);
