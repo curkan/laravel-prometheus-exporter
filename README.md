@@ -23,6 +23,7 @@ php artisan prometheus:publish
 php artisan prometheus:publish
 ```
 Настройки в app.php
+
 ``
 Register Service Providers
 ``
