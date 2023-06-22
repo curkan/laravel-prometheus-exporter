@@ -4,11 +4,9 @@ namespace Egamings\Prometheus\Http\Controllers;
 
 use Egamings\Prometheus\Exporter\PrometheusExporter;
 use Illuminate\Contracts\Routing\ResponseFactory;
-use Illuminate\Routing\Controller;
 use Prometheus\RenderTextFormat;
 
-class PrometheusMetricsController extends Controller
-{
+class PrometheusMetricsController {
     /**
      * @var ResponseFactory
      */
