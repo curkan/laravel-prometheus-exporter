@@ -48,12 +48,6 @@ class PrometheusServiceProvider extends ServiceProvider
                 'as' => config('prometheus.metrics_route_path'),
                 'uses' => 'Egamings\Prometheus\Http\Controllers\PrometheusMetricsController@getMetrics',
             ]);
-
-            $middleware = config('prometheus.metrics_route_middleware');
-
-            if ($middleware) {
-                $route->middleware($middleware);
-            }
         });
 
         $exporter = $this->app->make(PrometheusExporter::class);
