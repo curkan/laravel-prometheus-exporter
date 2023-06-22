@@ -40,7 +40,7 @@ class PrometheusServiceProvider extends ServiceProvider
     {
         /** @var \Illuminate\Routing\Route $route */
         if (config('prometheus.metrics_route_enabled')) {
-            $this->loadRoutesFrom(__DIR__ . '../routes.php');
+            $this->loadRoutesFrom(__DIR__ . '/../routes.php');
         }
 
         $exporter = $this->app->make(PrometheusExporter::class);
