@@ -35,7 +35,15 @@ class PrometheusServiceProvider extends ServiceProvider
      */
     private function configureRoutes(): void
     {
-        $this->app->router->group([], function ($route) { /* @phpstan-ignore-line */
+        $middleware = [];
+
+        if (!empty(config('prometheus.metrics_route_middleware'))) {
+            $middleware = [ 
+                'middleware' => config('prometheus.metrics_route_middleware')
+            ];
+        }
+
+        $this->app->router->group($middleware, function ($route) { /* @phpstan-ignore-line */
             $route->get(config('prometheus.metrics_route_path'), [ 
                 'as' => config('prometheus.metrics_route_path'),
                 'uses' => 'Egamings\Prometheus\Http\Controllers\PrometheusMetricsController@getMetrics',
