@@ -82,6 +82,7 @@ return [
             'read_timeout' => 10,
             'persistent_connections' => false,
             'prefix' => env('PROMETHEUS_REDIS_PREFIX', 'PROMETHEUS_'),
+            'password' => env('PROMETHEUS_REDIS_PASSWORD', 'DEV_SECRET_API_REDIS_PASSWORD')
         ],
 
     ],
