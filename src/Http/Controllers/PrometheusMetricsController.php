@@ -10,7 +10,7 @@ class PrometheusMetricsController {
     /**
      * @var ResponseFactory
      */
-    protected $responseFactory;
+    // protected $responseFactory;
 
     /**
      * @var PrometheusExporter
@@ -21,19 +21,19 @@ class PrometheusMetricsController {
      * @param ResponseFactory $responseFactory
      * @param PrometheusExporter $prometheusExporter
      */
-    public function __construct(ResponseFactory $responseFactory, PrometheusExporter $prometheusExporter)
+    public function __construct(PrometheusExporter $prometheusExporter)
     {
-        $this->responseFactory = $responseFactory;
+        // $this->responseFactory = $responseFactory;
         $this->prometheusExporter = $prometheusExporter;
     }
 
     /**
      * @return ResponseFactory
      */
-    public function getResponseFactory()
-    {
-        return $this->responseFactory;
-    }
+    // public function getResponseFactory()
+    // {
+    //     return $this->responseFactory;
+    // }
 
     /**
      * @return PrometheusExporter
