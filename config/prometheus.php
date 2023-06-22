@@ -43,13 +43,6 @@ return [
 
     'metrics_route_name' => env('PROMETHEUS_METRICS_ROUTE_NAME', 'metrics'),
 
-    /*
-     * You can override these classes to customize low-level behaviour of the package.
-     * In most cases, you can just use the defaults.
-     */
-    'actions' => [
-        'render_collectors' => Spatie\Prometheus\Actions\RenderCollectorsAction::class,
-    ],
 
     /*
     |--------------------------------------------------------------------------
@@ -85,6 +78,18 @@ return [
             'password' => env('PROMETHEUS_REDIS_PASSWORD', 'DEV_SECRET_API_REDIS_PASSWORD')
         ],
 
+    ],
+    /*
+    |--------------------------------------------------------------------------
+    | Collectors
+    |--------------------------------------------------------------------------
+    |
+    | The collectors specified here will be auto-registered in the exporter.
+    |
+    */
+
+    'collectors' => [
+        // \Your\ExporterClass::class,
     ],
 
 ];
