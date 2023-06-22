@@ -2,7 +2,7 @@
 
 $route->get(config('prometheus.metrics_route_path'), [
     'as' => 'metrics_route_path',
-    'uses' => 'Egamings\Prometheus\Http\Controllers\PrometheusMetricsController:@getMetrics',
+    'uses' => 'Egamings\Prometheus\Http\Controllers\PrometheusMetricsController@getMetrics',
 ]);
 
 
