@@ -12,7 +12,7 @@ class PublishConfigCommand extends Command
      *
      * @var string
      */
-    protected $name = 'swagger-lume:publish-config';
+    protected $name = 'prometheus:publish-config';
 
     /**
      * The console command description.

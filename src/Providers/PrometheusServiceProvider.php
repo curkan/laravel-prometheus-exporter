@@ -61,7 +61,7 @@ class PrometheusServiceProvider extends ServiceProvider
     public function register()
     {
 
-        $configPath = __DIR__.'/../config/prometheus.php';
+        $configPath = __DIR__.'/../../config/prometheus.php';
         $this->mergeConfigFrom($configPath, 'prometheus');
 
         $this->app->singleton('command.prometheus.publish', function () {
