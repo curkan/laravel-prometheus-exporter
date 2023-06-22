@@ -13,7 +13,7 @@ class Prometheus extends Facade
 {
     protected static function getFacadeAccessor()
     {
-        return \Egamings\Prometheus\Exporter\PrometheusExporter::class;
+        return 'prometheus';
     }
 }
 
