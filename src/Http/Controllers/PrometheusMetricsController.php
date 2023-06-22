@@ -3,14 +3,9 @@
 namespace Egamings\Prometheus\Http\Controllers;
 
 use Egamings\Prometheus\Exporter\PrometheusExporter;
-use Illuminate\Contracts\Routing\ResponseFactory;
 use Prometheus\RenderTextFormat;
 
 class PrometheusMetricsController {
-    /**
-     * @var ResponseFactory
-     */
-    // protected $responseFactory;
 
     /**
      * @var PrometheusExporter
@@ -18,22 +13,13 @@ class PrometheusMetricsController {
     protected $prometheusExporter;
 
     /**
-     * @param ResponseFactory $responseFactory
      * @param PrometheusExporter $prometheusExporter
      */
     public function __construct(PrometheusExporter $prometheusExporter)
     {
-        // $this->responseFactory = $responseFactory;
         $this->prometheusExporter = $prometheusExporter;
     }
 
-    /**
-     * @return ResponseFactory
-     */
-    // public function getResponseFactory()
-    // {
-    //     return $this->responseFactory;
-    // }
 
     /**
      * @return PrometheusExporter
@@ -58,12 +44,7 @@ class PrometheusMetricsController {
         $renderer = new RenderTextFormat();
         $result = $renderer->render($metrics);
 
-        // return $this->responseFactory->make($result, 200, ['Content-Type' => RenderTextFormat::MIME_TYPE]);
-        // 
-        return response()->json([
-            'result' => 'test',
-        ], 201);
-
+        return response($result, 201)->header('Content-Type', RenderTextFormat::MIME_TYPE);
     }
 }
 
