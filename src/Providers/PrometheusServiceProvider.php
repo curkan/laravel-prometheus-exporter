@@ -7,7 +7,6 @@ use Egamings\Prometheus\Console\PublishConfigCommand;
 use Egamings\Prometheus\Exporter\PrometheusExporter;
 use Egamings\Prometheus\Factory\StorageAdapterFactory;
 use Illuminate\Support\Arr;
-use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
 use Prometheus\CollectorRegistry;
 use Prometheus\Storage\Adapter;
@@ -16,13 +15,11 @@ class PrometheusServiceProvider extends ServiceProvider
 {
     /**
      * Perform post-registration booting of services.
+     *
+     * @return void
      */
-    public function boot()
+    public function boot(): void
     {
-        // $this->publishes([
-        //     __DIR__ . '/../../config/prometheus.php' => config_path('prometheus.php'),
-        // ]);
-
         $exporter = $this->app->make(PrometheusExporter::class); /* @var PrometheusExporter $exporter */
         foreach (config('prometheus.collectors') as $class) {
             $collector = $this->app->make($class);
@@ -38,17 +35,20 @@ class PrometheusServiceProvider extends ServiceProvider
      */
     private function configureRoutes(): void
     {
-        /** @var \Illuminate\Routing\Route $route */
-        // if (config('prometheus.metrics_route_enabled')) {
-        //     $this->loadRoutesFrom(__DIR__ . '/../routes.php');
-        // }
+        $this->app->router->group([], function ($route) { /* @phpstan-ignore-line */
+            $route->get(config('prometheus.metrics_route_path'), [ 
+                'as' => config('prometheus.metrics_route_path'),
+                'uses' => 'Egamings\Prometheus\Http\Controllers\PrometheusMetricsController@getMetrics',
+            ]);
 
-        $this->app->router->group([], function ($route) {
-            require __DIR__.'/../routes.php';
+            $middleware = config('prometheus.metrics_route_middleware');
+
+            if ($middleware) {
+                $route->middleware($middleware);
+            }
         });
 
         $exporter = $this->app->make(PrometheusExporter::class);
-        /* @var PrometheusExporter $exporter */
 
         foreach (config('prometheus.collectors') as $class) {
             $collector = $this->app->make($class);
@@ -72,12 +72,6 @@ class PrometheusServiceProvider extends ServiceProvider
         $this->app->singleton('command.prometheus.publish-config', function () {
             return new PublishConfigCommand();
         });
-
-        // $this->app->bind(\Illuminate\Routing\RouteCollectionInterface::class, function ($app) { return new \Illuminate\Routing\RouteCollection; });
-        // $this->app->singleton(\Illuminate\Contracts\Routing\ResponseFactory::class, function() {
-        //     return new Laravel\Lumen\Http\ResponseFactory();
-        // });
-
 
         $this->app->singleton(PrometheusExporter::class, function ($app) {
             $adapter = $app['prometheus.storage_adapter'];

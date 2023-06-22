@@ -6,6 +6,11 @@ use Illuminate\Console\Command;
 
 class Publisher
 {
+    /**
+     * command
+     *
+     * @var mixed
+     */
     protected $command;
 
     public function __construct(Command $command)
@@ -13,7 +18,16 @@ class Publisher
         $this->command = $command;
     }
 
-    public function publishFile($source, $destinationPath, $fileName)
+    /**
+     * publishFile
+     *
+     * @param mixed $source
+     * @param mixed $destinationPath
+     * @param mixed $fileName
+     *
+     * @return void 
+     */
+    public function publishFile($source, $destinationPath, $fileName): void
     {
         if (! is_dir($destinationPath)) {
             if (! mkdir($destinationPath, 0755, true)) {
@@ -36,7 +50,14 @@ class Publisher
         }
     }
 
-    public function publishDirectory($source, $destination)
+    /**
+     * publishDirectory
+     *
+     * @param mixed $source
+     * @param mixed $destination
+     * @return void 
+     */
+    public function publishDirectory($source, $destination): void
     {
         if (! is_dir($source)) {
             $this->command->error('Bad source path');

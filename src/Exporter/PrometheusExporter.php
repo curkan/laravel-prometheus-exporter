@@ -62,9 +62,11 @@ class PrometheusExporter
     /**
      * Register a collector.
      *
-     * @param CollectorInterface $collector
+     * @param CollectorContract $collector
+     *
+     * @return void
      */
-    public function registerCollector(CollectorContract $collector)
+    public function registerCollector(CollectorContract $collector): void
     {
         $name = $collector->getName();
 
@@ -90,9 +92,9 @@ class PrometheusExporter
      *
      * @param string $name
      *
-     * @return CollectorInterface
+     * @return CollectorContract
      */
-    public function getCollector($name)
+    public function getCollector($name): CollectorContract
     {
         if (!isset($this->collectors[$name])) {
             throw new InvalidArgumentException(sprintf('The collector "%s" is not registered.', $name));

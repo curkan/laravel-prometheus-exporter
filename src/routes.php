@@ -1,6 +1,6 @@
 <?php
 
-$route->get(config('prometheus.metrics_route_path'), [
+$route->get(config('prometheus.metrics_route_path'), [  /* @phpstan-ignore-line */
     'as' => 'metrics_route_path',
     'uses' => 'Egamings\Prometheus\Http\Controllers\PrometheusMetricsController@getMetrics',
 ]);

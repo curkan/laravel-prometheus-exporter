@@ -5,13 +5,15 @@ namespace Egamings\Prometheus\Facades;
 use Illuminate\Support\Facades\Facade;
 
 /**
- * @see \Spatie\Prometheus\Prometheus
+ * Class: Prometheus
+ *
+ * @see Facade
  */
 class Prometheus extends Facade
 {
     protected static function getFacadeAccessor()
     {
-        return \Egamings\Prometheus\Prometheus::class;
+        return \Egamings\Prometheus\Exporter\PrometheusExporter::class;
     }
 }
 
