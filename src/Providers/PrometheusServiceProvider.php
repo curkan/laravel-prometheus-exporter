@@ -39,19 +39,16 @@ class PrometheusServiceProvider extends ServiceProvider
     private function configureRoutes(): void
     {
         /** @var \Illuminate\Routing\Route $route */
-        $route = Route::get(
-            config('prometheus.metrics_route_path'),
-            \Superbalist\LaravelPrometheusExporter\MetricsController::class . '@getMetrics'
-        );
-
-        if ($name = config('prometheus.metrics_route_name')) {
-            $route->name($name);
+        if (config('prometheus.metrics_route_enabled')) {
+            $this->loadRoutesFrom(__DIR__ . '/routes.php');
         }
 
-        $middleware = config('prometheus.metrics_route_middleware');
+        $exporter = $this->app->make(PrometheusExporter::class);
+        /* @var PrometheusExporter $exporter */
 
-        if ($middleware) {
-            $route->middleware($middleware);
+        foreach (config('prometheus.collectors') as $class) {
+            $collector = $this->app->make($class);
+            $exporter->registerCollector($collector);
         }
     }
 
