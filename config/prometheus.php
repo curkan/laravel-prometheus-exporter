@@ -19,6 +19,17 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Metrics Route Enabled?
+    |--------------------------------------------------------------------------
+    |
+    | If enabled, a /metrics route will be registered to export prometheus
+    | metrics.
+    |
+    */
+
+    'metrics_route_enabled' => env('PROMETHEUS_METRICS_ROUTE_ENABLED', true),
+    /*
+    |--------------------------------------------------------------------------
     | Metrics Route Path
     |--------------------------------------------------------------------------
     |
