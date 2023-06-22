@@ -2,6 +2,8 @@
 
 namespace Egamings\Prometheus\Providers;
 
+use Egamings\Prometheus\Console\PublishCommand;
+use Egamings\Prometheus\Console\PublishConfigCommand;
 use Egamings\Prometheus\Exporter\PrometheusExporter;
 use Egamings\Prometheus\Factory\StorageAdapterFactory;
 use Illuminate\Support\Arr;
@@ -17,9 +19,9 @@ class PrometheusServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        $this->publishes([
-            __DIR__ . '/../../config/prometheus.php' => config_path('prometheus.php'),
-        ]);
+        // $this->publishes([
+        //     __DIR__ . '/../../config/prometheus.php' => config_path('prometheus.php'),
+        // ]);
 
         $exporter = $this->app->make(PrometheusExporter::class); /* @var PrometheusExporter $exporter */
         foreach (config('prometheus.collectors') as $class) {
@@ -58,13 +60,24 @@ class PrometheusServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->mergeConfigFrom(__DIR__ . '/../../config/prometheus.php', 'prometheus');
+
+        $configPath = __DIR__.'/../config/prometheus.php';
+        $this->mergeConfigFrom($configPath, 'prometheus');
+
+        $this->app->singleton('command.prometheus.publish', function () {
+            return new PublishCommand();
+        });
+
+        $this->app->singleton('command.prometheus.publish-config', function () {
+            return new PublishConfigCommand();
+        });
 
         $this->app->singleton(PrometheusExporter::class, function ($app) {
             $adapter = $app['prometheus.storage_adapter'];
             $prometheus = new CollectorRegistry($adapter);
             return new PrometheusExporter(config('prometheus.namespace'), $prometheus);
         });
+
         $this->app->alias(PrometheusExporter::class, 'prometheus');
 
         $this->app->bind('prometheus.storage_adapter_factory', function () {
@@ -79,6 +92,11 @@ class PrometheusServiceProvider extends ServiceProvider
             return $factory->make($driver, $config);
         });
         $this->app->alias(Adapter::class, 'prometheus.storage_adapter');
+
+        $this->commands(
+            'command.prometheus.publish',
+            'command.prometheus.publish-config'
+        );
     }
 
     /**
