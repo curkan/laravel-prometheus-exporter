@@ -54,6 +54,22 @@ return [
 
     'metrics_route_name' => env('PROMETHEUS_METRICS_ROUTE_NAME', 'metrics'),
 
+    /*
+    |--------------------------------------------------------------------------
+    | Metrics Route Middleware
+    |--------------------------------------------------------------------------
+    |
+    | The middleware to assign to the metrics route.
+    |
+    | This can be used to protect the /metrics end-point to authenticated users,
+    | a specific ip address, etc.
+    | You are responsible for writing the middleware and implementing any
+    | business logic needed by your application.
+    |
+    */
+
+    'metrics_route_middleware' => env('PROMETHEUS_METRICS_ROUTE_MIDDLEWARE'),
+
 
     /*
     |--------------------------------------------------------------------------
