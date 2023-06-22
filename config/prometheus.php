@@ -15,7 +15,7 @@ return [
     |
     */
 
-    'namespace' => env('PROMETHEUS_NAMESPACE', 'app'),
+    'namespace' => env('PROMETHEUS_NAMESPACE', 'games'),
 
     /*
     |--------------------------------------------------------------------------

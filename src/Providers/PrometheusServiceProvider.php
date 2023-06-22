@@ -39,9 +39,13 @@ class PrometheusServiceProvider extends ServiceProvider
     private function configureRoutes(): void
     {
         /** @var \Illuminate\Routing\Route $route */
-        if (config('prometheus.metrics_route_enabled')) {
-            $this->loadRoutesFrom(__DIR__ . '/../routes.php');
-        }
+        // if (config('prometheus.metrics_route_enabled')) {
+        //     $this->loadRoutesFrom(__DIR__ . '/../routes.php');
+        // }
+
+        $this->app->router->group(['namespace' => config('prometheus.namespace')], function ($route) {
+            require __DIR__.'/../routes.php';
+        });
 
         $exporter = $this->app->make(PrometheusExporter::class);
         /* @var PrometheusExporter $exporter */
