@@ -19,7 +19,7 @@
     ],
     "require": {
         "php": ">=8.0",
-        "illuminate/support": "*",
+        "illuminate/support": "^8.73|^9.0|^10.0",
         "illuminate/database": "^8.73|^9.0|^10.0",
         "illuminate/http": "*",
         "promphp/prometheus_client_php": "^2.7.1",
