@@ -1,6 +1,6 @@
 {
     "name": "egamings/laravel-prometheus-exporter",
-    "version": "1.0.2",
+    "version": "1.0.3",
     "autoload": {
         "psr-4": {
             "Egamings\\Prometheus\\": "src/"
