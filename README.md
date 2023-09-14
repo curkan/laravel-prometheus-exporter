@@ -1,6 +1,8 @@
 # laravel-prometheus-exporter
 
 A Prometheus Exporter for Laravel\Lumen.
+Проверялось на 8-10 версиях.
+
 
 Данный пакет - обертка над [jimdo/prometheus_client_php](https://github.com/Jimdo/prometheus_client_php) для Laravel.
 
